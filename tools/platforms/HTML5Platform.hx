@@ -243,15 +243,15 @@ class HTML5Platform extends PlatformTarget
 		dependencyPath = project.config.getString("html5.dependency-path", "lib");
 		outputFile = targetDirectory + "/bin/" + project.app.file + ".js";
 
-		try
-		{
-			if (targetFlags.exists("npm") || (FileSystem.exists(targetDirectory + "/bin/package.json") && !targetFlags.exists("electron")))
-			{
-				npm = true;
-				outputFile = project.app.file + ".js";
-			}
-		}
-		catch (e:Dynamic) {}
+		// try
+		// {
+		// 	if (targetFlags.exists("npm") || (FileSystem.exists(targetDirectory + "/bin/package.json") && !targetFlags.exists("electron")))
+		// 	{
+		// 		npm = true;
+		// 		outputFile = project.app.file + ".js";
+		// 	}
+		// }
+		// catch (e:Dynamic) {}
 	}
 
 	public override function run():Void
