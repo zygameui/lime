@@ -1071,9 +1071,9 @@ class Image
 		@param	sourceRect	The source rectangle to use when copying
 		@param	destPoint	The destination point in this `Image` to copy into
 		@param	redMultiplier	A red multiplier to use when blitting
-		@param	greenMultiplier	A red multiplier to use when blitting
-		@param	blueMultiplier	A red multiplier to use when blitting
-		@param	alphaMultiplier	A red multiplier to use when blitting
+		@param	greenMultiplier	A green multiplier to use when blitting
+		@param	blueMultiplier	A blue multiplier to use when blitting
+		@param	alphaMultiplier	An alpha multiplier to use when blitting
 	**/
 	public function merge(sourceImage:Image, sourceRect:Rectangle, destPoint:Vector2, redMultiplier:Int, greenMultiplier:Int, blueMultiplier:Int,
 			alphaMultiplier:Int):Void
@@ -1438,7 +1438,7 @@ class Image
 	@:noCompletion private function __fromBase64(base64:String, type:String, onload:Image->Void = null):Void
 	{
 		#if (js && html5)
-		#if openfljs
+		#if (openfljs || genes)
 		var image:JSImage = untyped #if haxe4 js.Syntax.code #else __js__ #end ('new window.Image ()');
 		#else
 		var image = new JSImage();
@@ -1574,7 +1574,7 @@ class Image
 			catch (e:Dynamic) {}
 		});
 		#elseif (js && html5)
-		#if openfljs
+		#if (openfljs || genes)
 		var image:JSImage = untyped #if haxe4 js.Syntax.code #else __js__ #end ('new window.Image ()');
 		#else
 		var image = new JSImage();

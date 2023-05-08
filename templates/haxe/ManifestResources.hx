@@ -1,6 +1,5 @@
 package;
 
-
 import haxe.io.Bytes;
 import lime.utils.AssetBundle;
 import lime.utils.AssetLibrary;
@@ -11,6 +10,18 @@ import lime.utils.Assets;
 import sys.FileSystem;
 #end
 
+#if disable_preloader_assets
+@:dox(hide) class ManifestResources {
+	public static var preloadLibraries:Array<Dynamic>;
+	public static var preloadLibraryNames:Array<String>;
+	public static var rootPath:String;
+
+	public static function init (config:Dynamic):Void {
+		preloadLibraries = new Array ();
+		preloadLibraryNames = new Array ();
+	}
+}
+#else
 @:access(lime.utils.Assets)
 
 
@@ -32,6 +43,12 @@ import sys.FileSystem;
 		if (config != null && Reflect.hasField (config, "rootPath")) {
 
 			rootPath = Reflect.field (config, "rootPath");
+
+			if(!StringTools.endsWith (rootPath, "/")) {
+
+				rootPath += "/";
+
+			}
 
 		}
 
@@ -56,18 +73,7 @@ import sys.FileSystem;
 
 		var data, manifest, library, bundle;
 
-		// ?
-		#if (zygame && un_use_openfl_assets)
-
-		data = '{}';
-		manifest = AssetManifest.parse (data, rootPath);
-		library = AssetLibrary.fromManifest (manifest);
-		Assets.registerLibrary ("::library::", library);
-
-		if (library != null) preloadLibraries.push (library);
-		else preloadLibraryNames.push ("::library::");
-
-		#elseif kha
+		#if kha
 
 		::manifest::
 		library = AssetLibrary.fromManifest (manifest);
@@ -84,9 +90,9 @@ import sys.FileSystem;
 		Assets.registerLibrary ("::library::", library);
 		::else::Assets.libraryPaths["::library::"] = rootPath + "::resourceName::";
 		::end::::end::::if (type == "bundle")::::if (embed)::
-		bundle = AssetBundle.fromBytes(#if flash Bytes.ofData(new __ASSET__::flatName::() #else new __ASSET__::flatName::() #end));
-		library = AssetLibrary.fromBundle(bundle);
-		Assets.registerLibrary("::library::", library);
+		bundle = AssetBundle.fromBytes (#if flash Bytes.ofData (new __ASSET__::flatName:: () #else new __ASSET__::flatName:: () #end));
+		library = AssetLibrary.fromBundle (bundle);
+		Assets.registerLibrary ("::library::", library);
 		::else::Assets.bundlePaths["::library::"] = rootPath + "::resourceName::";
 		::end::::end::::end::::end::
 
@@ -144,6 +150,8 @@ import sys.FileSystem;
 #end
 
 #end
+#end
+
 #end
 
 #end

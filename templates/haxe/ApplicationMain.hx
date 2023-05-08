@@ -18,8 +18,9 @@ import ::APP_MAIN::;
 
 	public static function create(config:Dynamic):Void
 	{
+		#if !disable_preloader_assets
 		ManifestResources.init(config);
-		trace("SDL:main.start");
+		#end
 
 		#if !munit
 		var app = new ::APP_MAIN::();
@@ -99,6 +100,7 @@ import ::APP_MAIN::;
 
 		// preloader.create ();
 
+		#if !disable_preloader_assets
 		for (library in ManifestResources.preloadLibraries)
 		{
 			app.preloader.addLibrary(library);
@@ -108,6 +110,7 @@ import ::APP_MAIN::;
 		{
 			app.preloader.addLibraryName(name);
 		}
+		#end
 
 		app.preloader.load();
 

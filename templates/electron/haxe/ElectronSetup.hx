@@ -52,8 +52,7 @@ class ElectronSetup
 				var config:Dynamic =
 					{
 						webPreferences:{
-							nodeIntegration:true,
-							contextIsolation:false
+							nodeIntegration:true
 						},
 						fullscreen: window.fullscreen,
 						frame: frame,

@@ -462,7 +462,7 @@ class Assets
 					promise.error("Cannot parse asset manifest for library \"" + id + "\"");
 					return;
 				}
-				
+
 				var library = AssetLibrary.fromManifest(manifest);
 
 				if (library == null)

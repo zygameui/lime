@@ -277,7 +277,11 @@ class HTML5Application
 		Browser.window.addEventListener("blur", handleWindowEvent, false);
 		Browser.window.addEventListener("resize", handleWindowEvent, false);
 		Browser.window.addEventListener("beforeunload", handleWindowEvent, false);
-		Browser.window.addEventListener("devicemotion", handleSensorEvent, false);
+
+		if (Reflect.hasField(Browser.window, "Accelerometer"))
+		{
+			Browser.window.addEventListener("devicemotion", handleSensorEvent, false);
+		}
 
 		#if stats
 		stats = untyped #if haxe4 js.Syntax.code #else __js__ #end ("new Stats ()");
@@ -478,7 +482,6 @@ class HTML5Application
 					}
 
 				case "resize":
-					trace("[Lime] resize");
 					parent.window.__backend.handleResizeEvent(event);
 
 				case "beforeunload":
