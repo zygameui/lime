@@ -243,6 +243,14 @@ class HTML5Platform extends PlatformTarget
 		dependencyPath = project.config.getString("html5.dependency-path", "lib");
 		outputFile = targetDirectory + "/bin/" + project.app.file + ".js";
 
+		for (dependency in project.dependencies)
+		{
+			dependency.embed = false;
+		}
+
+		npm = false;
+
+		trace("禁止npm模式");
 		// try
 		// {
 		// 	if (targetFlags.exists("npm") || (FileSystem.exists(targetDirectory + "/bin/package.json") && !targetFlags.exists("electron")))

@@ -73,7 +73,17 @@ import sys.FileSystem;
 
 		var data, manifest, library, bundle;
 
-		#if kha
+		#if (zygame && un_use_openfl_assets)
+
+		data = '{}';
+		manifest = AssetManifest.parse (data, rootPath);
+		library = AssetLibrary.fromManifest (manifest);
+		Assets.registerLibrary ("::library::", library);
+
+		if (library != null) preloadLibraries.push (library);
+		else preloadLibraryNames.push ("::library::");
+
+		#elseif kha
 
 		::manifest::
 		library = AssetLibrary.fromManifest (manifest);
