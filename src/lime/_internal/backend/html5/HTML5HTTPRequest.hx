@@ -64,7 +64,12 @@ class HTML5HTTPRequest
 
 		if (parent.method == POST)
 		{
+			#if zygameui
+			if(request.upload != null)
+				request.upload.addEventListener("progress", progress, false);
+			#else
 			request.upload.addEventListener("progress", progress, false);
+			#end
 		}
 		else
 		{
@@ -533,7 +538,6 @@ class HTML5HTTPRequest
 		var readyStateChange = function(event)
 		{
 			if (request.readyState != 4) return;
-
 			if (request.status != null && ((request.status >= 200 && request.status <= 400) || (validStatus0 && request.status == 0)))
 			{
 				processResponse();
