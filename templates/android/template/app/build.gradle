@@ -62,7 +62,7 @@ android {
 	
 	buildTypes {
 		release {
-			minifyEnabled false
+			minifyEnabled ::if DEFINE_PROGUARD_RULES:: true ::else:: false ::end::
 			signingConfig signingConfigs.release
 		}
 	}
