@@ -803,7 +803,7 @@ class HTML5Window
 					primaryTouch = touch;
 				}
 
-				if (touch == primaryTouch)
+				if (primaryTouch != null && touch.id == primaryTouch.id)
 				{
 					parent.onMouseDown.dispatch(x, y, 0);
 				}
@@ -828,7 +828,7 @@ class HTML5Window
 						case "touchmove":
 							Touch.onMove.dispatch(touch);
 
-							if (touch == primaryTouch)
+							if (primaryTouch != null && touch.id == primaryTouch.id)
 							{
 								parent.onMouseMove.dispatch(x, y);
 							}
@@ -839,7 +839,7 @@ class HTML5Window
 							currentTouches.remove(data.identifier);
 							unusedTouchesPool.add(touch);
 
-							if (touch == primaryTouch)
+							if (primaryTouch != null && touch.id == primaryTouch.id)
 							{
 								parent.onMouseUp.dispatch(x, y, 0);
 								primaryTouch = null;
@@ -851,7 +851,7 @@ class HTML5Window
 							currentTouches.remove(data.identifier);
 							unusedTouchesPool.add(touch);
 
-							if (touch == primaryTouch)
+							if (primaryTouch != null && touch.id == primaryTouch.id)
 							{
 								// parent.onMouseUp.dispatch (x, y, 0);
 								primaryTouch = null;
