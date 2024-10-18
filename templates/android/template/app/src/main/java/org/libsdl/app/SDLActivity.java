@@ -537,7 +537,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
                     // FIXME: Why aren't we enabling sensor input at start?
 
                     mSDLThread = new Thread(new SDLMain(), "SDLThread");
-                    mSurface.enableSensor(Sensor.TYPE_ACCELEROMETER, true);
+                    // mSurface.enableSensor(Sensor.TYPE_ACCELEROMETER, true);
                     mSDLThread.start();
 
                     // No nativeResume(), don't signal Android_ResumeSem
@@ -1710,7 +1710,7 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
     }
 
     public void handlePause() {
-        enableSensor(Sensor.TYPE_ACCELEROMETER, false);
+        // enableSensor(Sensor.TYPE_ACCELEROMETER, false);
     }
 
     public void handleResume() {
@@ -1719,7 +1719,7 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
         requestFocus();
         setOnKeyListener(this);
         setOnTouchListener(this);
-        enableSensor(Sensor.TYPE_ACCELEROMETER, true);
+        // enableSensor(Sensor.TYPE_ACCELEROMETER, true);
     }
 
     public Surface getNativeSurface() {
@@ -2034,14 +2034,14 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
     // Sensor events
     public void enableSensor(int sensortype, boolean enabled) {
         // TODO: This uses getDefaultSensor - what if we have >1 accels?
-        if (enabled) {
-            mSensorManager.registerListener(this,
-                            mSensorManager.getDefaultSensor(sensortype),
-                            SensorManager.SENSOR_DELAY_GAME, null);
-        } else {
-            mSensorManager.unregisterListener(this,
-                            mSensorManager.getDefaultSensor(sensortype));
-        }
+        // if (enabled) {
+        //     mSensorManager.registerListener(this,
+        //                     mSensorManager.getDefaultSensor(sensortype),
+        //                     SensorManager.SENSOR_DELAY_GAME, null);
+        // } else {
+        //     mSensorManager.unregisterListener(this,
+        //                     mSensorManager.getDefaultSensor(sensortype));
+        // }
     }
 
     @Override
