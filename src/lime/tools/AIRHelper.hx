@@ -17,7 +17,10 @@ class AIRHelper
 		{
 			case MAC:
 
-			// extension = ".app";
+				if (airTarget == "bundle")
+				{
+					extension = ".app";
+				}
 
 			case IOS:
 				if (project.targetFlags.exists("simulator"))
@@ -130,6 +133,12 @@ class AIRHelper
 			signingOptions.push(System.findTemplate(project.templatePaths, "air/debug.pfx"));
 			signingOptions.push("-storepass");
 			signingOptions.push("samplePassword");
+		}
+
+		if (project.config.exists("air.tsa"))
+		{
+			signingOptions.push("-tsa");
+			signingOptions.push(project.config.getString("air.tsa"));
 		}
 
 		var args = ["-package"];

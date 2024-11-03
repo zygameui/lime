@@ -71,9 +71,9 @@ class ImageCanvasUtil
 				buffer.data = cast buffer.__srcImageData.data;
 			}
 		}
-		image.type = CANVAS;	
 		#end
 
+		image.type = CANVAS;
 	}
 
 	public static function convertToData(image:Image, clear:Bool = false):Void

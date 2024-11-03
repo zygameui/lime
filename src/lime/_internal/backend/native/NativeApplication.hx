@@ -8,6 +8,7 @@ import lime.graphics.OpenGLRenderContext;
 import lime.graphics.RenderContext;
 import lime.math.Rectangle;
 import lime.media.AudioManager;
+import lime.system.CFFI;
 import lime.system.Clipboard;
 import lime.system.Display;
 import lime.system.DisplayMode;
@@ -89,7 +90,7 @@ class NativeApplication
 
 	private function advanceTimer():Void
 	{
-		#if lime_cffi
+		#if (lime_cffi && !macro)
 		if (pauseTimer > -1)
 		{
 			var offset = System.getTimer() - pauseTimer;
@@ -145,7 +146,7 @@ class NativeApplication
 		#elseif lime_cffi
 		var result = NativeCFFI.lime_application_exec(handle);
 
-		#if (!emscripten && !ios && !nodejs)
+		#if (!webassembly && !ios && !nodejs)
 		parent.onExit.dispatch(result);
 		#end
 
@@ -187,7 +188,7 @@ class NativeApplication
 	{
 		for (window in parent.windows)
 		{
-			window.onDropFile.dispatch(#if hl @:privateAccess String.fromUTF8(dropEventInfo.file) #else dropEventInfo.file #end);
+			window.onDropFile.dispatch(CFFI.stringValue(dropEventInfo.file));
 		}
 	}
 
@@ -226,10 +227,6 @@ class NativeApplication
 			case HAT_MOVE:
 				var joystick = Joystick.devices.get(joystickEventInfo.id);
 				if (joystick != null) joystick.onHatMove.dispatch(joystickEventInfo.index, joystickEventInfo.eventValue);
-
-			case TRACKBALL_MOVE:
-				var joystick = Joystick.devices.get(joystickEventInfo.id);
-				if (joystick != null) joystick.onTrackballMove.dispatch(joystickEventInfo.index, joystickEventInfo.x, joystickEventInfo.y);
 
 			case BUTTON_DOWN:
 				var joystick = Joystick.devices.get(joystickEventInfo.id);
@@ -289,7 +286,7 @@ class NativeApplication
 			}
 
 			#if rpi
-			if (keyCode == ESCAPE && modifier == KeyModifier.NONE && type == KEY_UP && !window.onKeyUp.canceled)
+			if (keyCode == ESCAPE && modifier.ctrlKey && type == KEY_DOWN)
 			{
 				System.exit(0);
 			}
@@ -335,10 +332,14 @@ class NativeApplication
 			switch (mouseEventInfo.type)
 			{
 				case MOUSE_DOWN:
+					window.clickCount = mouseEventInfo.clickCount;
 					window.onMouseDown.dispatch(mouseEventInfo.x, mouseEventInfo.y, mouseEventInfo.button);
+					window.clickCount = 0;
 
 				case MOUSE_UP:
+					window.clickCount = mouseEventInfo.clickCount;
 					window.onMouseUp.dispatch(mouseEventInfo.x, mouseEventInfo.y, mouseEventInfo.button);
+					window.clickCount = 0;
 
 				case MOUSE_MOVE:
 					window.onMouseMove.dispatch(mouseEventInfo.x, mouseEventInfo.y);
@@ -426,10 +427,10 @@ class NativeApplication
 			switch (textEventInfo.type)
 			{
 				case TEXT_INPUT:
-					window.onTextInput.dispatch(#if hl @:privateAccess String.fromUTF8(textEventInfo.text) #else textEventInfo.text #end);
+					window.onTextInput.dispatch(CFFI.stringValue(textEventInfo.text));
 
 				case TEXT_EDIT:
-					window.onTextEdit.dispatch(#if hl @:privateAccess String.fromUTF8(textEventInfo.text) #else textEventInfo.text #end, textEventInfo.start,
+					window.onTextEdit.dispatch(CFFI.stringValue(textEventInfo.text), textEventInfo.start,
 						textEventInfo.length);
 
 				default:
@@ -561,13 +562,19 @@ class NativeApplication
 					window.__fullscreen = false;
 					window.__minimized = false;
 					window.onRestore.dispatch();
+
+				case WINDOW_SHOW:
+					window.onShow.dispatch();
+
+				case WINDOW_HIDE:
+					window.onHide.dispatch();
 			}
 		}
 	}
 
 	private function updateTimer():Void
 	{
-		#if lime_cffi
+		#if (lime_cffi && !macro)
 		if (Timer.sRunningTimers.length > 0)
 		{
 			var currentTime = System.getTimer();
@@ -742,7 +749,6 @@ class NativeApplication
 {
 	var AXIS_MOVE = 0;
 	var HAT_MOVE = 1;
-	var TRACKBALL_MOVE = 2;
 	var BUTTON_DOWN = 3;
 	var BUTTON_UP = 4;
 	var CONNECT = 5;
@@ -785,8 +791,9 @@ class NativeApplication
 	public var windowID:Int;
 	public var x:Float;
 	public var y:Float;
+	public var clickCount:Int;
 
-	public function new(type:MouseEventType = null, windowID:Int = 0, x:Float = 0, y:Float = 0, button:Int = 0, movementX:Float = 0, movementY:Float = 0)
+	public function new(type:MouseEventType = null, windowID:Int = 0, x:Float = 0, y:Float = 0, button:Int = 0, movementX:Float = 0, movementY:Float = 0, clickCount:Int = 0)
 	{
 		this.type = type;
 		this.windowID = 0;
@@ -795,11 +802,12 @@ class NativeApplication
 		this.button = button;
 		this.movementX = movementX;
 		this.movementY = movementY;
+		this.clickCount = clickCount;
 	}
 
 	public function clone():MouseEventInfo
 	{
-		return new MouseEventInfo(type, windowID, x, y, button, movementX, movementY);
+		return new MouseEventInfo(type, windowID, x, y, button, movementX, movementY, clickCount);
 	}
 }
 
@@ -967,4 +975,6 @@ class NativeApplication
 	var WINDOW_MOVE = 10;
 	var WINDOW_RESIZE = 11;
 	var WINDOW_RESTORE = 12;
+	var WINDOW_SHOW = 13;
+	var WINDOW_HIDE = 14;
 }
