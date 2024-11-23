@@ -249,8 +249,6 @@ class HTML5Platform extends PlatformTarget
 		}
 
 		npm = false;
-
-		trace("禁止npm模式");
 		// try
 		// {
 		// 	if (targetFlags.exists("npm") || (FileSystem.exists(targetDirectory + "/bin/package.json") && !targetFlags.exists("electron")))
