@@ -64,12 +64,7 @@ class HTML5HTTPRequest
 
 		if (parent.method == POST)
 		{
-			#if zygameui
-			if(request.upload != null)
-				request.upload.addEventListener("progress", progress, false);
-			#else
 			request.upload.addEventListener("progress", progress, false);
-			#end
 		}
 		else
 		{

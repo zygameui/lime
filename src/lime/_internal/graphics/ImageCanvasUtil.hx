@@ -28,8 +28,7 @@ class ImageCanvasUtil
 
 	public static function convertToCanvas(image:Image, clear:Bool = false):Void
 	{
-		// todo zygameui 试验性调整，不转换为Canvas
-		#if (js && html5 && !zygameui)
+		#if (js && html5)
 		var buffer = image.buffer;
 
 		if (buffer.__srcImage != null)
