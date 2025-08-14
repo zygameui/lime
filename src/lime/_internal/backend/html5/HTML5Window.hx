@@ -1364,6 +1364,15 @@ class HTML5Window
 
 			var stretch = resizeElement || (setWidth == 0 && setHeight == 0);
 
+			#if (zygameui && weixin)
+			// zygame 这里是兼容微信的屏幕切换的实现
+			setWidth = Math.round(elementWidth/scale);
+			setHeight = Math.round(elementHeight/scale);
+			parent.__width = setWidth;
+			parent.__height = setHeight;
+			parent.onResize.dispatch(setWidth, setHeight);
+			#end
+
 			if (parent.element != null && (div == null || (div != null && stretch)))
 			{
 				if (stretch)
