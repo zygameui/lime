@@ -16,6 +16,11 @@ android {
 	namespace "::APP_PACKAGE::"
 	compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
 	buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+
+	::if DEFINE_ASSET_PACK_BUNDLE::
+	assetPacks = [":deps:asset_pack"]
+	::end::
+	
 	::if (ANDROID_GRADLE_PLUGIN>="4.0")::ndkPath '::ANDROID_NDK_ROOT_ESCAPED::'::end::
 
 	defaultConfig {
