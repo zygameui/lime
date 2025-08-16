@@ -10,13 +10,22 @@ System.setProperty('java.awt.headless','false')
 android {
 	compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
 	buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+	namespace "::META_PACKAGE_NAME::"
 	
 	defaultConfig {
 		applicationId "::META_PACKAGE_NAME::"
+		ndkVersion "28.2.13676358"
 		minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
 		targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
 		versionCode Integer.parseInt(project.VERSION_CODE)
 		versionName project.VERSION_NAME
+		multiDexEnabled true
+		ndk {
+			::if DEFINE_ARMV7::
+			abiFilters 'armeabi-v7a'
+			::end::
+			abiFilters 'arm64-v8a'
+		}
 		::if (languages != null)::resConfigs ::foreach languages::"::__current__::", ::end::""::end::
 	}
 	
