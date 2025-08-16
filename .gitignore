@@ -1,3 +1,5 @@
 
 .DS_Store
 .gradle
+project/lib
+Project/obj
