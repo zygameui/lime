@@ -567,12 +567,12 @@ public class HIDDeviceManager {
         UsbDevice usbDevice = device.getDevice();
         if (usbDevice != null && !mUsbManager.hasPermission(usbDevice)) {
             HIDDeviceOpenPending(deviceID);
-            try {
-                mUsbManager.requestPermission(usbDevice, PendingIntent.getBroadcast(mContext, 0, new Intent(HIDDeviceManager.ACTION_USB_PERMISSION), 0));
-            } catch (Exception e) {
-                Log.v(TAG, "Couldn't request permission for USB device " + usbDevice);
+            // try {
+                // mUsbManager.requestPermission(usbDevice, PendingIntent.getBroadcast(mContext, 0, new Intent(HIDDeviceManager.ACTION_USB_PERMISSION), 0));
+            // } catch (Exception e) {
+                // Log.v(TAG, "Couldn't request permission for USB device " + usbDevice);
                 HIDDeviceOpenResult(deviceID, false);
-            }
+            // }
             return false;
         }
 
