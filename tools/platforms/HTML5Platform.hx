@@ -252,23 +252,15 @@ class HTML5Platform extends PlatformTarget
 		dependencyPath = project.config.getString("html5.dependency-path", "lib");
 		outputFile = targetDirectory + "/bin/" + project.app.file + ".js";
 
-		for (dependency in project.dependencies)
+		try
 		{
-			dependency.embed = false;
+			if (targetFlags.exists("npm") || (FileSystem.exists(targetDirectory + "/bin/package.json") && !targetFlags.exists("electron")))
+			{
+				npm = true;
+				outputFile = project.app.file + ".js";
+			}
 		}
-
-		npm = false;
-
-		trace("禁止npm模式");
-		// try
-		// {
-		// 	if (targetFlags.exists("npm") || (FileSystem.exists(targetDirectory + "/bin/package.json") && !targetFlags.exists("electron")))
-		// 	{
-		// 		npm = true;
-		// 		outputFile = project.app.file + ".js";
-		// 	}
-		// }
-		// catch (e:Dynamic) {}
+		catch (e:Dynamic) {}
 	}
 
 	public override function run():Void
@@ -310,7 +302,7 @@ class HTML5Platform extends PlatformTarget
 			}
 		}
 
-		var fontPath;
+		var fontPath:String;
 
 		for (asset in project.assets)
 		{
@@ -361,6 +353,11 @@ class HTML5Platform extends PlatformTarget
 			project.haxeflags.push("-xml " + targetDirectory + "/types.xml");
 		}
 
+		if (project.targetFlags.exists("json"))
+		{
+			project.haxeflags.push("--json " + targetDirectory + "/types.json");
+		}
+
 		if (Log.verbose)
 		{
 			project.haxedefs.set("verbose", 1);
@@ -380,7 +377,7 @@ class HTML5Platform extends PlatformTarget
 
 		if (npm)
 		{
-			var path;
+			var path:String;
 			for (i in 0...project.sources.length)
 			{
 				path = project.sources[i];
@@ -452,7 +449,7 @@ class HTML5Platform extends PlatformTarget
 		}
 
 		var createdDirectories = new Map<String, Bool>();
-		var dir = null;
+		var dir:String = null;
 
 		for (asset in project.assets)
 		{
@@ -478,7 +475,7 @@ class HTML5Platform extends PlatformTarget
 
 					var hasFormat = [false, false, false, false];
 					var extensions = [ext, ".eot", ".svg", ".woff"];
-					var extension;
+					var extension:String;
 
 					for (i in 0...extensions.length)
 					{
@@ -516,7 +513,7 @@ class HTML5Platform extends PlatformTarget
 
 							if (shouldEmbedFont)
 							{
-								var urls = [];
+								var urls:Array<String> = [];
 								if (hasFormat[1]) urls.push("url('" + embeddedAsset.targetPath + ".eot?#iefix') format('embedded-opentype')");
 								if (hasFormat[3]) urls.push("url('" + embeddedAsset.targetPath + ".woff') format('woff')");
 								urls.push("url('" + embeddedAsset.targetPath + ext + "') format('truetype')");
