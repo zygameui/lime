@@ -28,8 +28,7 @@ class ImageCanvasUtil
 
 	public static function convertToCanvas(image:Image, clear:Bool = false):Void
 	{
-		// todo zygameui 试验性调整，不转换为Canvas
-		#if (js && html5 && !zygameui)
+		#if (js && html5)
 		var buffer = image.buffer;
 
 		if (buffer.__srcImage != null)
@@ -71,9 +70,9 @@ class ImageCanvasUtil
 				buffer.data = cast buffer.__srcImageData.data;
 			}
 		}
-		image.type = CANVAS;
 		#end
 
+		image.type = CANVAS;
 	}
 
 	public static function convertToData(image:Image, clear:Bool = false):Void
@@ -190,13 +189,10 @@ class ImageCanvasUtil
 
 			if (!image.transparent)
 			{
-				if (!image.transparent) buffer.__srcCanvas.setAttribute("moz-opaque", "true");
-				buffer.__srcContext = untyped #if haxe4 js.Syntax.code #else __js__ #end ('buffer.__srcCanvas.getContext ("2d", { alpha: false })');
+				buffer.__srcCanvas.setAttribute("moz-opaque", "true");
 			}
-			else
-			{
-				buffer.__srcContext = buffer.__srcCanvas.getContext("2d");
-			}
+
+			buffer.__srcContext = buffer.__srcCanvas.getContext("2d", {alpha: image.transparent});
 		}
 		#end
 	}
@@ -227,7 +223,10 @@ class ImageCanvasUtil
 	{
 		convertToCanvas(image);
 
-		var r, g, b, a;
+		var r:Int;
+		var g:Int;
+		var b:Int;
+		var a:Int;
 
 		if (format == ARGB32)
 		{
