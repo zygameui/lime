@@ -4,3 +4,4 @@
 project/lib
 Project/obj
 ndll
+.marscode/deviceInfo.json
