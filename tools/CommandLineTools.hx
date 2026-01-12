@@ -155,9 +155,10 @@ class CommandLineTools
 
 				var targets = words[1].split(",");
 
-				var haxelib:Haxelib = null;
-				var path:String = null;
-				var hxmlPath:String = null;
+				var haxelib = null;
+				var path = null;
+				var hxmlPath = null;
+				var project = null;
 
 				if (!FileSystem.exists(words[0]))
 				{
@@ -318,7 +319,7 @@ class CommandLineTools
 						HXProject._targetFlags = targetFlags;
 						HXProject._userDefines = userDefines;
 
-						var project:HXProject = null;
+						var project = null;
 
 						if (haxelib != null)
 						{
@@ -662,8 +663,8 @@ class CommandLineTools
 		{
 			var colonIndex = words[0].indexOf(":");
 
-			var projectName:String = null;
-			var sampleName:String = null;
+			var projectName = null;
+			var sampleName = null;
 
 			if (colonIndex == -1)
 			{
@@ -1641,7 +1642,7 @@ class CommandLineTools
 			if (environment.get("JAVA_HOME") != null)
 			{
 				var javaPath = Path.combine(environment.get("JAVA_HOME"), "bin");
-				var value:String;
+				var value;
 
 				if (System.hostPlatform == WINDOWS)
 				{
@@ -1998,7 +1999,7 @@ class CommandLineTools
 
 		if (!runFromHaxelib)
 		{
-			var path:String = null;
+			var path = null;
 
 			if (FileSystem.exists("tools.n"))
 			{

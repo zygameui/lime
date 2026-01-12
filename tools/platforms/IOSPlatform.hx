@@ -169,7 +169,7 @@ class IOSPlatform extends PlatformTarget
 		{
 			project.haxeflags.push("-xml " + targetDirectory + "/types.xml");
 		}
-
+		
 		if (project.targetFlags.exists("json"))
 		{
 			project.haxeflags.push("--json " + targetDirectory + "/types.json");
@@ -297,7 +297,7 @@ class IOSPlatform extends PlatformTarget
 		context.VALID_ARCHS = valid_archs.join(" ");
 		context.THUMB_SUPPORT = armv6 ? "GCC_THUMB_SUPPORT = NO;" : "";
 
-		var requiredCapabilities:Array<{name:String, value:Bool}> = [];
+		var requiredCapabilities = [];
 
 		if (!armv6 && armv7)
 		{
@@ -364,9 +364,9 @@ class IOSPlatform extends PlatformTarget
 
 		for (dependency in project.dependencies)
 		{
-			var name:String = null;
-			var path:String = null;
-			var fileType:String = null;
+			var name = null;
+			var path = null;
+			var fileType = null;
 
 			if (Path.extension(dependency.name) == "framework")
 			{
@@ -417,7 +417,7 @@ class IOSPlatform extends PlatformTarget
 
 		if (allowInsecureHTTP != "*" && allowInsecureHTTP != "true")
 		{
-			var sites:Array<{domain: String}> = [];
+			var sites = [];
 
 			if (allowInsecureHTTP != "false")
 			{
@@ -483,7 +483,7 @@ class IOSPlatform extends PlatformTarget
 
 		var arc = (project.targetFlags.exists("arc"));
 
-		var commands:Array<Array<String>> = [];
+		var commands = [];
 
 		if (armv6) commands.push(["-Dios", "-DHXCPP_CPP11", "-DHXCPP_ARMV6"]);
 		if (armv7) commands.push(["-Dios", "-DHXCPP_CPP11", "-DHXCPP_ARMV7"]);
@@ -601,7 +601,7 @@ class IOSPlatform extends PlatformTarget
 			var sb = project.launchStoryboard;
 
 			var assetsPath = sb.assetsPath;
-			var imagesets:Array<ImageSet> = [];
+			var imagesets = [];
 
 			for (asset in sb.assets)
 			{
@@ -617,7 +617,7 @@ class IOSPlatform extends PlatformTarget
 						var baseImageName = Path.withoutExtension(imageset.name);
 
 						var imageScales = ["1x", "2x", "3x"];
-						var images:Array<{idiom:String, filename:String, scale:String}> = [];
+						var images = [];
 						for (scale in imageScales)
 						{
 							var filename = baseImageName + (scale == "1x" ? "" : "@" + scale) + ".png";

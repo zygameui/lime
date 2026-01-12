@@ -302,7 +302,7 @@ class HTML5Platform extends PlatformTarget
 			}
 		}
 
-		var fontPath:String;
+		var fontPath;
 
 		for (asset in project.assets)
 		{
@@ -377,7 +377,7 @@ class HTML5Platform extends PlatformTarget
 
 		if (npm)
 		{
-			var path:String;
+			var path;
 			for (i in 0...project.sources.length)
 			{
 				path = project.sources[i];
@@ -449,7 +449,7 @@ class HTML5Platform extends PlatformTarget
 		}
 
 		var createdDirectories = new Map<String, Bool>();
-		var dir:String = null;
+		var dir = null;
 
 		for (asset in project.assets)
 		{
@@ -475,7 +475,7 @@ class HTML5Platform extends PlatformTarget
 
 					var hasFormat = [false, false, false, false];
 					var extensions = [ext, ".eot", ".svg", ".woff"];
-					var extension:String;
+					var extension;
 
 					for (i in 0...extensions.length)
 					{
@@ -513,7 +513,7 @@ class HTML5Platform extends PlatformTarget
 
 							if (shouldEmbedFont)
 							{
-								var urls:Array<String> = [];
+								var urls = [];
 								if (hasFormat[1]) urls.push("url('" + embeddedAsset.targetPath + ".eot?#iefix') format('embedded-opentype')");
 								if (hasFormat[3]) urls.push("url('" + embeddedAsset.targetPath + ".woff') format('woff')");
 								urls.push("url('" + embeddedAsset.targetPath + ext + "') format('truetype')");

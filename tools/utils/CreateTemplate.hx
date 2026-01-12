@@ -76,9 +76,9 @@ class CreateTemplate
 	{
 		var colonIndex = words[0].indexOf(":");
 
-		var projectName:String = null;
-		var sampleName:String = null;
-		var outputName:String = "SampleProject";
+		var projectName = null;
+		var sampleName = null;
+		var outputName = "SampleProject";
 
 		if (colonIndex == -1)
 		{
@@ -281,9 +281,9 @@ class CreateTemplate
 	{
 		var colonIndex = words[0].indexOf(":");
 
-		var projectName:String = null;
-		var sampleName:String = null;
-		var outputPath:String = null;
+		var projectName = null;
+		var sampleName = null;
+		var outputPath = null;
 
 		if (colonIndex == -1 && words.length > 1)
 		{
@@ -357,7 +357,7 @@ class CreateTemplate
 
 	public static function listSamples(projectName:String, userDefines:Map<String, Dynamic>)
 	{
-		var templates:Array<String> = [];
+		var templates = [];
 
 		if (projectName != null && projectName != "")
 		{

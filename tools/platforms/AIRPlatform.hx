@@ -133,20 +133,6 @@ class AIRPlatform extends FlashPlatform
 		{
 			Log.error("You must define AIR_SDK with the path to your AIR SDK");
 		}
-		else
-		{
-			var airSdk = project.environment.get("AIR_SDK");
-			if (!FileSystem.exists(airSdk))
-			{
-				Log.error("The path specified for AIR_SDK does not exist: " + airSdk);
-				Sys.exit(1);
-			}
-			if (!FileSystem.isDirectory(airSdk))
-			{
-				Log.error("The path specified for AIR_SDK must be a directory: " + airSdk);
-				Sys.exit(1);
-			}
-		}
 
 		// TODO: Should we package on desktop in "deploy" command instead?
 
@@ -200,7 +186,7 @@ class AIRPlatform extends FlashPlatform
 		{
 			var rootDirectory = targetDirectory + "/bin";
 			var paths = System.readDirectory(rootDirectory, [project.app.file + ".apk", project.app.file + ".ipa", project.app.file + ".air"]);
-			var files:Array<String> = [];
+			var files = [];
 
 			for (path in paths)
 			{
@@ -282,7 +268,7 @@ class AIRPlatform extends FlashPlatform
 		}
 		else
 		{
-			var major:String = null;
+			var major = null;
 
 			var patch = buildNumber.substr(-3);
 			buildNumber = buildNumber.substr(0, -3);
@@ -308,7 +294,7 @@ class AIRPlatform extends FlashPlatform
 		}
 
 		var targetDevice = project.config.getString("ios.device", "universal");
-		var targetDevices:Array<Int> = [];
+		var targetDevices = [];
 
 		if (targetDevice != "ipad") targetDevices.push(1); // iphone
 		if (targetDevice != "iphone") targetDevices.push(2); // ipad
@@ -355,10 +341,7 @@ class AIRPlatform extends FlashPlatform
 		if (embedded)
 		{
 			var files = ["debug.hxml", "release.hxml", "final.hxml"];
-			var path:String;
-			var hxml:String;
-			var lines:Array<String>;
-			var output:Array<String>;
+			var path, hxml, lines, output;
 
 			for (file in files)
 			{

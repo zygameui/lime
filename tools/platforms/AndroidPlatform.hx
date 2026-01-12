@@ -142,7 +142,7 @@ class AndroidPlatform extends PlatformTarget
 		var hasX86 = ArrayTools.containsValue(project.architectures, Architecture.X86);
 		var hasX64 = ArrayTools.containsValue(project.architectures, Architecture.X64);
 
-		var architectures:Array<Architecture> = [];
+		var architectures = [];
 
 		if (hasARMV5) architectures.push(Architecture.ARMV5);
 		if (hasARMV7) architectures.push(Architecture.ARMV7);
@@ -162,9 +162,8 @@ class AndroidPlatform extends PlatformTarget
 		for (architecture in architectures)
 		{
 			var minSDKVer = project.config.getInt("android.minimum-sdk-version", 21);
-			//PLATFORM define needed for older ndk and gcc toolchain
-			var haxeParams = [hxml, "-D", "android", "-D", 'PLATFORM_NUMBER=$minSDKVer', "-D", 'PLATFORM=android-$minSDKVer'];
-			var cppParams = ["-Dandroid", '-DPLATFORM_NUMBER=$minSDKVer', '-DPLATFORM=android-$minSDKVer'];
+			var haxeParams = [hxml, "-D", "android", "-D", 'PLATFORM_NUMBER=$minSDKVer'];
+			var cppParams = ["-Dandroid", '-DPLATFORM_NUMBER=$minSDKVer'];
 			var path = sourceSet + "/jniLibs/armeabi";
 			var suffix = ".so";
 
@@ -283,7 +282,7 @@ class AndroidPlatform extends PlatformTarget
 				build = "-release";
 			}
 
-			var outputDirectory:String = null;
+			var outputDirectory = null;
 			if (project.config.exists("android.gradle-build-directory"))
 			{
 				outputDirectory = Path.combine(project.config.getString("android.gradle-build-directory"), project.app.file + "/app/outputs/apk");
@@ -347,7 +346,7 @@ class AndroidPlatform extends PlatformTarget
 			}
 		}
 
-		var outputDirectory:String = null;
+		var outputDirectory = null;
 
 		if (project.config.exists("android.gradle-build-directory"))
 		{
@@ -373,17 +372,15 @@ class AndroidPlatform extends PlatformTarget
 		var x86 = (ArrayTools.containsValue(project.architectures, Architecture.X86));
 		var x64 = (command == "rebuild" || ArrayTools.containsValue(project.architectures, Architecture.X64));
 
-		var commands:Array<Array<String>> = [];
+		var commands = [];
 		var minSDKVer = 21;
-		var platformNumberDefine = '-DPLATFORM_NUMBER=$minSDKVer';
-		// Required for older ndk and gcc toolchain
-		var platformDefine = '-DPLATFORM=android-$minSDKVer';
+		var platformDefine = '-DPLATFORM_NUMBER=$minSDKVer';
 
 		if (armv5) commands.push(["-Dandroid", platformDefine]);
-		if (armv7) commands.push(["-Dandroid", "-DHXCPP_ARMV7", platformDefine, platformNumberDefine]);
-		if (arm64) commands.push(["-Dandroid", "-DHXCPP_ARM64", platformDefine, platformNumberDefine]);
-		if (x86) commands.push(["-Dandroid", "-DHXCPP_X86", platformDefine, platformNumberDefine]);
-		if (x64) commands.push(["-Dandroid", "-DHXCPP_X86_64", platformDefine, platformNumberDefine]);
+		if (armv7) commands.push(["-Dandroid", "-DHXCPP_ARMV7", platformDefine]);
+		if (arm64) commands.push(["-Dandroid", "-DHXCPP_ARM64", platformDefine]);
+		if (x86) commands.push(["-Dandroid", "-DHXCPP_X86", platformDefine]);
+		if (x64) commands.push(["-Dandroid", "-DHXCPP_X86_64", platformDefine]);
 
 		CPPHelper.rebuild(project, commands);
 	}
@@ -475,7 +472,7 @@ class AndroidPlatform extends PlatformTarget
 		context.CPP_DIR = targetDirectory + "/obj";
 		context.OUTPUT_DIR = targetDirectory;
 		context.ANDROID_INSTALL_LOCATION = project.config.getString("android.install-location", "auto");
-		context.ANDROID_MINIMUM_SDK_VERSION = project.config.getInt("android.minimum-sdk-version", 21);
+		context.ANDROID_MINIMUM_SDK_VERSION = project.config.getInt("android.minimum-sdk-version", 28);
 		context.ANDROID_TARGET_SDK_VERSION = project.config.getInt("android.target-sdk-version", 35);
 		context.ANDROID_EXTENSIONS = project.config.getArrayString("android.extension");
 		context.ANDROID_PERMISSIONS = project.config.getArrayString("android.permission", [
@@ -518,31 +515,6 @@ class AndroidPlatform extends PlatformTarget
 
 			Log.error("You must define ANDROID_SDK and ANDROID_NDK_ROOT to target Android, please run '" + command + " setup android' first");
 			Sys.exit(1);
-		}
-		else
-		{
-			var sdkPath = project.environment.get("ANDROID_SDK");
-			if (!FileSystem.exists(sdkPath))
-			{
-				Log.error("The path specified for ANDROID_SDK does not exist: " + sdkPath);
-				Sys.exit(1);
-			}
-			if (!FileSystem.isDirectory(sdkPath))
-			{
-				Log.error("The path specified for ANDROID_SDK must be a directory: " + sdkPath);
-				Sys.exit(1);
-			}
-			var ndkPath = project.environment.get("ANDROID_NDK_ROOT");
-			if (!FileSystem.exists(ndkPath))
-			{
-				Log.error("The path specified for ANDROID_NDK_ROOT does not exist: " + ndkPath);
-				Sys.exit(1);
-			}
-			if (!FileSystem.isDirectory(ndkPath))
-			{
-				Log.error("The path specified for ANDROID_NDK_ROOT must be a directory: " + ndkPath);
-				Sys.exit(1);
-			}
 		}
 
 		if (project.config.exists("android.gradle-build-directory"))

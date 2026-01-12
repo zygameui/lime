@@ -178,7 +178,7 @@ class TizenPlatform extends PlatformTarget
 		var device = (command == "rebuild" || !targetFlags.exists("simulator"));
 		var simulator = (command == "rebuild" || targetFlags.exists("simulator"));
 
-		var commands:Array<Array<String>> = [];
+		var commands = [];
 
 		if (device) commands.push(["-Dtizen"]);
 		if (simulator) commands.push(["-Dtizen", "-Dsimulator"]);

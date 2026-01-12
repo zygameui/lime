@@ -280,10 +280,7 @@ class FlashPlatform extends PlatformTarget
 		if (embedded)
 		{
 			var files = ["debug.hxml", "release.hxml", "final.hxml"];
-			var path:String;
-			var hxml:String;
-			var lines:Array<String>;
-			var output:Array<String>;
+			var path, hxml, lines, output;
 
 			for (file in files)
 			{

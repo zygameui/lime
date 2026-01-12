@@ -502,8 +502,8 @@ class WindowsPlatform extends PlatformTarget
 			}
 			else if (targetType == "winrt")
 			{
-				var haxeArgs:Array<String> = [hxml];
-				var flags:Array<String> = [];
+				var haxeArgs = [hxml];
+				var flags = [];
 
 				haxeArgs.push("-D");
 				haxeArgs.push("winrt");
@@ -775,7 +775,7 @@ class WindowsPlatform extends PlatformTarget
 
 			// }
 
-			var commands:Array<Array<String>> = [];
+			var commands = [];
 			if (targetType == "hl")
 			{
 				// default to 64 bit, just like upstream Hashlink releases
@@ -810,7 +810,7 @@ class WindowsPlatform extends PlatformTarget
 
 				if (!targetFlags.exists("32") && !targetFlags.exists("x86_32")
 					&& System.hostArchitecture == X64
-					&& (command != "rebuild" || targetType == "cpp" || targetType == "neko" || targetType == "winrt"))
+					&& (command != "rebuild" || targetType == "cpp" || targetType == "winrt"))
 				{
 					if (targetType == "winrt")
 					{
@@ -986,12 +986,12 @@ class WindowsPlatform extends PlatformTarget
 
 			var msvc19 = true;
 
-			if (project.defines.exists("mingw") || (!hasVSCommunity && vs140 == null) || (hxcppMSVC != null && hxcppMSVC != vs140))
+			if ((!hasVSCommunity && vs140 == null) || (hxcppMSVC != null && hxcppMSVC != vs140))
 			{
 				msvc19 = false;
 			}
 
-			var suffix = (msvc19 ? "-19" : "") + "${LIBEXT}";
+			var suffix = (msvc19 ? "-19.lib" : ".lib");
 
 			for (i in 0...project.ndlls.length)
 			{
@@ -1078,7 +1078,7 @@ class WindowsPlatform extends PlatformTarget
 			}
 		}
 
-		var fontPath:String;
+		var fontPath;
 
 		for (asset in project.assets)
 		{
@@ -1222,7 +1222,7 @@ class WindowsPlatform extends PlatformTarget
 			"source/uwp-project.jsproj",
 			"source/uwp-project_TemporaryKey.pfx"
 		];
-		var fullPath:String;
+		var fullPath;
 
 		for (path in renamePaths)
 		{

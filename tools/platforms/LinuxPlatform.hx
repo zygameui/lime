@@ -275,8 +275,8 @@ class LinuxPlatform extends PlatformTarget
 		}
 		else
 		{
-			var haxeArgs:Array<String> = [hxml];
-			var flags:Array<String> = [];
+			var haxeArgs = [hxml];
+			var flags = [];
 
 			if (is64)
 			{
@@ -466,7 +466,7 @@ class LinuxPlatform extends PlatformTarget
 
 	public override function rebuild():Void
 	{
-		var commands:Array<Array<String>> = [];
+		var commands = [];
 
 		if (System.hostArchitecture == ARM64 )
 		{
