@@ -92,7 +92,7 @@ class AIRHelper
 			default:
 		}
 
-		var signingOptions:Array<String> = [];
+		var signingOptions = [];
 
 		if (project.keystore != null)
 		{
@@ -406,8 +406,8 @@ class AIRHelper
 		if (targetPlatform == ANDROID && !project.targetFlags.exists("air-simulator"))
 		{
 			AndroidHelper.initialize(project);
-			var deviceID:String = null;
-			var adbFilter:String = null;
+			var deviceID = null;
+			var adbFilter = null;
 
 			// if (!Log.verbose) {
 
@@ -431,7 +431,7 @@ class AIRHelper
 		if (targetPlatform == ANDROID)
 		{
 			AndroidHelper.initialize(project);
-			var deviceID:String = null;
+			var deviceID = null;
 			AndroidHelper.uninstall(project.meta.packageName, deviceID);
 		}
 	}

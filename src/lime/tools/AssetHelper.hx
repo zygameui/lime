@@ -115,7 +115,7 @@ class AssetHelper
 			libraries[lib.name] = lib;
 		}
 
-		var assetData:Dynamic;
+		var assetData;
 
 		for (asset in project.assets)
 		{
@@ -155,8 +155,8 @@ class AssetHelper
 			}
 		}
 
-		var manifest:AssetManifest = null;
-		var manifests:Array<AssetManifest> = [];
+		var manifest = null;
+		var manifests = [];
 
 		if (!hasManifest.exists(DEFAULT_LIBRARY_NAME))
 		{
@@ -178,7 +178,7 @@ class AssetHelper
 		if (targetDirectory != null)
 		{
 			System.mkdir(targetDirectory);
-			var targetPath:String;
+			var targetPath;
 
 			for (manifest in manifests)
 			{
@@ -409,7 +409,7 @@ class AssetHelper
 			libraryMap[library.name] = true;
 		}
 
-		var library:Library;
+		var library;
 
 		for (asset in project.assets)
 		{
@@ -435,7 +435,7 @@ class AssetHelper
 
 		var handlers = new Array<String>();
 		var hasPackedLibraries = false;
-		var type:String;
+		var type;
 
 		for (library in project.libraries)
 		{
@@ -492,7 +492,7 @@ class AssetHelper
 				}
 				catch (e:Dynamic)
 				{
-					var types:Array<String> = [];
+					var types = [];
 
 					for (library in project.libraries)
 					{
@@ -545,9 +545,7 @@ class AssetHelper
 			project.haxedefs.set("disable_preloader_assets", "1");
 		}
 
-		var manifest:AssetManifest;
-		var embed:Bool;
-		var asset:Asset;
+		var manifest, embed, asset;
 
 		for (library in project.libraries)
 		{
@@ -611,10 +609,7 @@ class AssetHelper
 
 	public static function processPackedLibraries(project:HXProject, targetDirectory:String = null):Void
 	{
-		var type:String;
-		var cacheAvailable:Bool;
-		var cacheDirectory:String;
-		var filename:String;
+		var type, asset, cacheAvailable, cacheDirectory, filename;
 		var output, manifest, position, assetData:Dynamic, input;
 		var embeddedLibrary = false;
 
@@ -661,7 +656,7 @@ class AssetHelper
 
 					try
 					{
-						var assetData:Dynamic;
+						var assetData;
 
 						for (asset in project.assets)
 						{

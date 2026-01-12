@@ -6,7 +6,7 @@
 
 #ifdef HX_WINDOWS
 #include <SDL_syswm.h>
-#include <windows.h>
+#include <Windows.h>
 #undef CreateWindow
 #endif
 
@@ -75,9 +75,6 @@ namespace lime {
 		SDL_SetHint (SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
 		SDL_SetHint (SDL_HINT_MOUSE_TOUCH_EVENTS, "0");
 		SDL_SetHint (SDL_HINT_TOUCH_MOUSE_EVENTS, "1");
-		
-		SDL_SetHint (SDL_HINT_IME_SHOW_UI, "1");
-        SDL_SetHint (SDL_HINT_IME_SUPPORT_EXTENDED_TEXT, "1");
 		#endif
 
 		if (flags & WINDOW_FLAG_HARDWARE) {

@@ -437,8 +437,7 @@ class Font
 			var offsetY = 0;
 			var maxRows = 0;
 
-			var width:Int;
-			var height:Int;
+			var width, height;
 			var i = 0;
 
 			while (i < count)
@@ -500,10 +499,7 @@ class Font
 			offsetY = 0;
 			maxRows = 0;
 
-			var index:Int;
-			var x:Int;
-			var y:Int;
-			var image:Image;
+			var index, x, y, image;
 
 			for (i in 0...count)
 			{
@@ -669,8 +665,7 @@ class Font
 			var timeout = 3000;
 			var intervalLength = 50;
 			var intervalCount = 0;
-			var loaded:Bool;
-			var timeExpired:Bool;
+			var loaded, timeExpired;
 
 			var checkFont = function()
 			{

@@ -67,7 +67,7 @@ class IOSHelper
 		System.runCommand(workingDirectory, "xcodebuild", archiveCommands);
 
 		var supportedExportMethods = ["adhoc", "development", "enterprise", "appstore"];
-		var exportMethods:Array<String> = [];
+		var exportMethods = [];
 		for (m in supportedExportMethods)
 		{
 			if (project.targetFlags.exists(m))
@@ -515,7 +515,7 @@ class IOSHelper
 
 	private static function waitForDeviceState(command:String, args:Array<String>):Void
 	{
-		var output:String;
+		var output;
 
 		while (true)
 		{

@@ -63,7 +63,6 @@ namespace lime {
 			ClipboardEvent clipboardEvent;
 			Uint32 currentUpdate;
 			double framePeriod;
-			Uint32 initFlags;
 			DropEvent dropEvent;
 			GamepadEvent gamepadEvent;
 			JoystickEvent joystickEvent;

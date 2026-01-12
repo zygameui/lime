@@ -350,10 +350,7 @@ class NativeWindow
 				var windowWidth = Std.int(parent.__width * parent.__scale);
 				var windowHeight = Std.int(parent.__height * parent.__scale);
 
-				var x:Int;
-				var y:Int;
-				var width:Int;
-				var height:Int;
+				var x, y, width, height;
 
 				if (rect != null)
 				{

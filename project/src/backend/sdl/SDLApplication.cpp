@@ -25,7 +25,7 @@ namespace lime {
 
 	SDLApplication::SDLApplication () {
 
-		initFlags = SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER | SDL_INIT_TIMER | SDL_INIT_JOYSTICK;
+		Uint32 initFlags = SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER | SDL_INIT_TIMER | SDL_INIT_JOYSTICK;
 		#if defined(LIME_MOJOAL) || defined(LIME_OPENALSOFT)
 		initFlags |= SDL_INIT_AUDIO;
 		#endif
@@ -268,7 +268,6 @@ namespace lime {
 
 			case SDL_TEXTINPUT:
 			case SDL_TEXTEDITING:
-			case SDL_TEXTEDITING_EXT:
 
 				ProcessTextEvent (event);
 				break;
@@ -814,8 +813,6 @@ namespace lime {
 
 		applicationEvent.type = EXIT;
 		ApplicationEvent::Dispatch (&applicationEvent);
-
-		SDL_QuitSubSystem (initFlags);
 
 		SDL_Quit ();
 

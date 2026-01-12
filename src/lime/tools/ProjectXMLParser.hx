@@ -297,10 +297,10 @@ class ProjectXMLParser extends HXProject
 	{
 		var path = "";
 		var embed:Null<Bool> = null;
-		var library:String = null;
+		var library = null;
 		var targetPath = "";
-		var glyphs:String = null;
-		var type:AssetType = null;
+		var glyphs = null;
+		var type = null;
 
 		if (element.has.path)
 		{
@@ -948,7 +948,7 @@ class ProjectXMLParser extends HXProject
 				case "include":
 					var path = "";
 					var addSourcePath = true;
-					var haxelib:Haxelib = null;
+					var haxelib = null;
 
 					if (element.has.haxelib)
 					{
@@ -1045,7 +1045,7 @@ class ProjectXMLParser extends HXProject
 					var name = substitute(element.att.name);
 					var version = "";
 					var optional = false;
-					var path:String = null;
+					var path = null;
 
 					if (element.has.version)
 					{
@@ -1125,10 +1125,10 @@ class ProjectXMLParser extends HXProject
 
 				case "ndll":
 					var name = substitute(element.att.name);
-					var haxelib:Haxelib = null;
+					var haxelib = null;
 					var staticLink:Null<Bool> = null;
 					var registerStatics = true;
-					var subdirectory:String = null;
+					var subdirectory = null;
 
 					if (element.has.haxelib)
 					{
@@ -1457,9 +1457,9 @@ class ProjectXMLParser extends HXProject
 					}
 					else
 					{
-						var path:String = null;
+						var path = null;
 						var name = "";
-						var type:String = null;
+						var type = null;
 						var embed:Null<Bool> = null;
 						var preload = false;
 						var generate = false;
@@ -1989,7 +1989,7 @@ class ProjectXMLParser extends HXProject
 
 	public function process(projectFile:String, useExtensionPath:Bool):Void
 	{
-		var xml:Access = null;
+		var xml = null;
 		var extensionPath = "";
 
 		try

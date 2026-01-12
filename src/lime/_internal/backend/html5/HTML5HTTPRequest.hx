@@ -308,8 +308,7 @@ class HTML5HTTPRequest
 		if (parent.enableResponseHeaders)
 		{
 			parent.responseHeaders = [];
-			var name:String;
-			var value:String;
+			var name, value;
 
 			for (line in request.getAllResponseHeaders().split("\n"))
 			{

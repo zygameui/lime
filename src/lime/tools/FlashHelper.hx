@@ -2,7 +2,6 @@ package lime.tools;
 
 // import openfl.text.Font;
 // import openfl.utils.ByteArray;
-import sys.io.FileInput;
 import haxe.io.Bytes;
 import hxp.*;
 import lime._internal.format.Base64;
@@ -448,7 +447,7 @@ class FlashHelper
 			{
 				var length = font.kerning.length;
 				if (length > 0xFFFF) length = 0xFFFF;
-				var k:NativeKerningData;
+				var k;
 
 				for (i in 0...length)
 				{
@@ -766,11 +765,11 @@ class FlashHelper
 	public static function embedAssets(project:HXProject, targetDirectory:String):Bool
 	{
 		var embed = "";
-		var assets:Array<Asset> = [];
+		var assets = [];
 		var maxSize = 1024 * 1024 * 16;
 		var currentSize = 0;
 		var id = 0;
-		var tempFiles:Array<String> = [];
+		var tempFiles = [];
 
 		for (asset in project.assets)
 		{
@@ -797,7 +796,7 @@ class FlashHelper
 				}
 
 				var ignoreAsset = false;
-				var sourcePath:String = null;
+				var sourcePath = null;
 
 				if (asset.data != null)
 				{
@@ -974,7 +973,7 @@ class FlashHelper
 
 				while (true)
 				{
-					var input:FileInput = null;
+					var input = null;
 
 					try
 					{

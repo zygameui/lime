@@ -15,8 +15,8 @@ class TizenHelper
 
 	public static function createPackage(project:HXProject, workingDirectory:String, targetPath:String):Void
 	{
-		var keystore:String = null;
-		var password:String = null;
+		var keystore = null;
+		var password = null;
 
 		if (project.keystore != null)
 		{
@@ -115,7 +115,7 @@ class TizenHelper
 		if (passwd)
 		{
 			var s = new StringBuf();
-			var c:Int;
+			var c;
 			while ((c = Sys.getChar(false)) != 13)
 				s.addChar(c);
 			return s.toString();
@@ -156,7 +156,7 @@ class TizenHelper
 
 	public static function trace(project:HXProject, follow:Bool = true):Void
 	{
-		/*var args:Array<String> = [];
+		/*var args = [];
 
 			if (follow) {
 
