@@ -287,7 +287,6 @@ class AudioBuffer
 		@return An `AudioBuffer` instance with the decoded audio data.
 	**/
 	#if lime_vorbis
-		
 	public static function fromVorbisFile(vorbisFile:VorbisFile):AudioBuffer
 	{
 		if (vorbisFile == null) return null;
@@ -419,7 +418,12 @@ class AudioBuffer
 
 	private static function __getCodec(bytes:Bytes):String
 	{
-		var signature = bytes.getString(0, 4);
+		var signature = null;
+		try
+		{
+			signature = bytes.getString(0, 4);
+		}
+		catch (e) {}
 
 		switch (signature)
 		{
